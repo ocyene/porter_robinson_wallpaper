@@ -1,0 +1,93 @@
+{
+	"children" : 
+	[
+		{
+			"flags" : 1,
+			"id" : 5,
+			"maxcount" : 1800,
+			"name" : "particles/pixel.json",
+			"type" : "static"
+		}
+	],
+	"controlpoint" : 
+	[
+		{
+			"flags" : 0,
+			"id" : 0,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 1,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 2,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 3,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 4,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 5,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 6,
+			"offset" : "0 0 0"
+		},
+		{
+			"flags" : 0,
+			"id" : 7,
+			"offset" : "0 0 0"
+		}
+	],
+	"emitter" : 
+	[
+		{
+			"directions" : "0 0 0",
+			"distancemax" : "0 0 0",
+			"duration" : 0,
+			"id" : 4,
+			"name" : "boxrandom",
+			"rate" : 20
+		}
+	],
+	"flags" : 0,
+	"initializer" : 
+	[
+		{
+			"id" : 2,
+			"max" : 0,
+			"min" : 0,
+			"name" : "lifetimerandom"
+		},
+		{
+			"id" : 3,
+			"max" : 0,
+			"min" : 0,
+			"name" : "sizerandom"
+		}
+	],
+	"material" : "materials/particle/halo_4.json",
+	"maxcount" : 1,
+	"operator" : [],
+	"renderer" : 
+	[
+		{
+			"id" : 1,
+			"name" : "sprite"
+		}
+	],
+	"starttime" : 0
+}

@@ -1,0 +1,84 @@
+{
+	"camera" : 
+	{
+		"center" : "-1.36000 -0.08000 -1.00000",
+		"eye" : "-1.36000 -0.08000 0.00000",
+		"up" : "0.00000 1.00000 0.00000"
+	},
+	"general" : 
+	{
+		"ambientcolor" : "0.30000 0.30000 0.30000",
+		"bloom" : false,
+		"bloomhdrfeather" : 0.1,
+		"bloomhdriterations" : 8,
+		"bloomhdrscatter" : 1.619,
+		"bloomhdrstrength" : 2.0,
+		"bloomhdrthreshold" : 1.0,
+		"bloomstrength" : 2.0,
+		"bloomthreshold" : 0.64999998,
+		"camerafade" : true,
+		"cameraparallax" : false,
+		"cameraparallaxamount" : 0.5,
+		"cameraparallaxdelay" : 0.1,
+		"cameraparallaxmouseinfluence" : 0.5,
+		"camerapreview" : true,
+		"camerashake" : false,
+		"camerashakeamplitude" : 0.5,
+		"camerashakeroughness" : 1.0,
+		"camerashakespeed" : 3.0,
+		"clearcolor" : "0.00000 0.00000 0.00000",
+		"clearenabled" : true,
+		"farz" : 10000.0,
+		"fov" : 50.0,
+		"hdr" : false,
+		"nearz" : 0.0099999998,
+		"orthogonalprojection" : 
+		{
+			"height" : 1440,
+			"width" : 2560
+		},
+		"skylightcolor" : "0.30000 0.30000 0.30000",
+		"zoom" : 1.0
+	},
+	"objects" : 
+	[
+		{
+			"alignment" : "center",
+			"alpha" : 1.0,
+			"angles" : "0.00000 0.00000 0.00000",
+			"brightness" : 1.0,
+			"color" : "1.00000 1.00000 1.00000",
+			"colorBlendMode" : 0,
+			"copybackground" : true,
+			"id" : 72,
+			"image" : "models/n10predm3vs51.json",
+			"ledsource" : false,
+			"locktransforms" : false,
+			"name" : "n10predm3vs51",
+			"origin" : "1280.00000 720.00000 0.00000",
+			"parallaxDepth" : "1.00000 1.00000",
+			"perspective" : false,
+			"scale" : "1.00000 1.00000 1.00000",
+			"size" : "2560.00000 1440.00000",
+			"solid" : true,
+			"visible" : true
+		},
+		{
+			"angles" : "0.00000 0.00000 0.00000",
+			"id" : 174,
+			"instanceoverride" : null,
+			"locktransforms" : false,
+			"name" : "pixel",
+			"origin" : 
+			{
+				"script" : "'use strict';\n\nconst calcDirection = (direction) => ({\n\t'left': -1,\n\t'right': 1,\n\t'down': -1,\n\t'up':    1,\n})[direction]\n\nconst calcInverseDirection = (direction) => ({\n\t'left':  'right',\n\t'right': 'left',\n\t'down':  'up',\n\t'up':    'down',\n})[direction]\n\nconst calcDimension = (dimension) => ({\n\t'x': 'right',\n\t'y' : 'up'\n})[dimension]\n\nconst resolution = {\n\tx: 2560,\n\ty: 1440\n}\n\nclass CoordinateSteps{\n\tconstructor(dimension, max = Math.random() * 300, size = 3){\n\t\tthis._dim   = dimension;\n\t\tthis._stepCount = 0;\n\t\tthis._maxSteps  = max;\n\t\tthis._size = size;\n\t\tthis._direction = calcDimension(dimension);\n\t\tthis._prevDirection = 1;\n\t}\n\tget pastMax(){\n\t\treturn this._stepCount > this._maxSteps;\n\t}\n\tcalcStep(){\n\t\tif (this._stepCount > this._maxSteps){\n\t\t\tthis._stepCount = 0;\n\t\t\tthis._maxSteps  = Math.round(Math.random() * 300);\n\t\t\tthis.flipDirection();\n\t\t}\n\t\tthis._stepCount++;\n\t\treturn calcDirection(this._direction) * this._size * (Math.random() < 0.5);\n\t}\n\t/**\n\t * @param {number} newMax - change maximum amount of steps in a direction\n\t */\n\tset max(newMax){\n\t\tthis._maxSteps = newMax;\n\t}\n\t/**\n\t * @param {string} newDirection - direction to change to\n\t */\n\tset direction(newDirection){\n\t\tthis._direction = calcDirection(newDirection);\n\t}\n\tflipDirection(){\n\t\tthis._direction = calcInverseDirection(this._direction)\n\t}\n}\n\nconst steps = {\n\tx : new CoordinateSteps('x'),\n\ty : new CoordinateSteps('y')\n}\n\n/**\n * @param {Vec3} value - for property 'origin'\n * @return {Vec3} - update current property value\n */\nexport function update(value) {\n\n\tvalue.x += steps.x.calcStep();\n\tvalue.y += steps.y.calcStep();\n\n\tconst xOnCanvas = (value.x < resolution.x && value.x > 0);\n\t\n\tif (!xOnCanvas){\n\t\tsteps.x.flipDirection();\n\t\tvalue.x += steps.x.calcStep();\n\t}\n\n\tconst yOnCanvas = (value.y < resolution.y && value.y > 0);\n\n\tif (!yOnCanvas){\n\t\tsteps.y.flipDirection();\n\t\tvalue.y += steps.y.calcStep();\n\t}\n\n\n\treturn value;\n}",
+				"value" : "1280.00000 720.00000 0.00000"
+			},
+			"parallaxDepth" : "1.00000 1.00000",
+			"particle" : "particles/new_particle_system.json",
+			"scale" : "1.00000 1.00000 1.00000",
+			"visible" : true
+		}
+	],
+	"version" : 1
+}
